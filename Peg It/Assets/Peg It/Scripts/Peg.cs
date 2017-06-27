@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Peg : MonoBehaviour {
 
+    private float lifetime;
     private Image img;
     private int _shapeIndex = 0;
     private int _colourIndex = 0;
@@ -22,13 +23,14 @@ public class Peg : MonoBehaviour {
 
         RandomizePeg();
 
-        if(PegSpawner.pegLifeTime > 0.5f)
-        {
-            PegSpawner.pegLifeTime *= PegSpawner.pegLifeTime > 1.5f ? PEG_SPEED_MULT_START : PEG_SPEED_MULT_END;
-        }
+        //if(PegSpawner.pegLifeTime > 0.5f)
+        //{
+        //    PegSpawner.pegLifeTime *= PegSpawner.pegLifeTime > 1.5f ? PEG_SPEED_MULT_START : PEG_SPEED_MULT_END;
+        //}
 
-        Debug.Log("Peg Speed: " + PegSpawner.pegLifeTime);
-        EventManager.Lost += DestroyPeg;
+        lifetime = PegSpawner.Instance.GetLifetime();
+
+        Debug.Log("Peg lifetime: " + lifetime);
     }
 
     private void Start()
@@ -51,8 +53,8 @@ public class Peg : MonoBehaviour {
     IEnumerator Move()
     {
         float startTime = Time.time;
-        float endTime = startTime + PegSpawner.pegLifeTime;
-        float timeToMove = PegSpawner.pegLifeTime;
+        float endTime = startTime + lifetime;
+        float timeToMove = lifetime;
         Vector3 startPos = _rect.position;
         Vector3 endPos = new Vector3(_rect.position.x, 0, _rect.position.z);
 
@@ -70,7 +72,6 @@ public class Peg : MonoBehaviour {
 
     public void DestroyPeg()
     {
-        EventManager.Lost -= DestroyPeg;
         Destroy(gameObject);
     }
 
