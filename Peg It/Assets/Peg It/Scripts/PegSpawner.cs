@@ -13,7 +13,23 @@ public class PegSpawner : MonoBehaviour {
     private const float SPAWN_INTERVAL_END = 1.0f;
     private const float PEG_LIFETIME_DEFAULT = 4.0f;
     private const int SPAWNS_BEFORE_END_INTERVAL = 7;
-    
+
+    //Spawn vars for EASY
+    private const float EASY_PEG_LIFETIME_START = 4.0f;
+    private const float EASY_PEG_LIFETIME_END = 1.5f;
+    private const int EASY_SPAWNS_BEFORE_END_LIFETIME = 15;
+
+    //Spawn vars for EASY
+    private const float MEDIUM_PEG_LIFETIME_START = 4.0f;
+    private const float MEDIUM_PEG_LIFETIME_END = 1.5f;
+    private const int MEDIUM_SPAWNS_BEFORE_END_LIFETIME = 15;
+
+    //Spawn vars for EASY
+    private const float HARD_PEG_LIFETIME_START = 4.0f;
+    private const float HARD_PEG_LIFETIME_END = 1.5f;
+    private const int HARD_SPAWNS_BEFORE_END_LIFETIME = 15;
+
+
     private Coroutine _spawnRoutine;
     private float _intervalReduction;
     private bool _spawning = false;
