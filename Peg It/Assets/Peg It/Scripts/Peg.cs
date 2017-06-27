@@ -45,7 +45,10 @@ public class Peg : MonoBehaviour {
         ColourIndex = Random.Range(0, GameManager.availableMods);
 
         img.sprite = SliderRefs.Instance.shapes[_shapeIndex].colour[_colourIndex];
-        img.rectTransform.sizeDelta = new Vector2(img.sprite.rect.width / 2 - 5, img.sprite.rect.height / 2 - 5);
+
+        int offset = _shapeIndex == 2 ? 45 : 20;    //If star, reduce size of sprite, to avoid masking issues
+       
+        img.rectTransform.sizeDelta = new Vector2(img.sprite.rect.width / 2 - offset, img.sprite.rect.height / 2 - offset);
 
     }
 
