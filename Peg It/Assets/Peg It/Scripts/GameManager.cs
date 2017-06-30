@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SocialPlatforms;
 using GooglePlayGames;
+//using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour {
 
@@ -17,6 +18,9 @@ public class GameManager : MonoBehaviour {
 
     private const string DIFFICULTY_PREFS_PATH = "PegIt_Difficulty";
     private static GameManager _instance = null;
+
+    public Text isAuthenticated;
+    public Text isConnected;
 
     public static GameManager Instance
     {
@@ -48,29 +52,52 @@ public class GameManager : MonoBehaviour {
 #if UNITY_EDITOR
         isEditor = true;
 #else
+       
         isEditor = false;
-        PlayGamesPlatform.Activate();
-        isConnectedToGoogleServices = ConnectToPlayServices();
+
+        if(Options.useGoogleServices){
+            PlayGamesPlatform.Activate();
+            isConnectedToGoogleServices = ConnectToPlayServices();
+        }
 #endif
     }
 
+
+    private void Update()
+    {
+        isAuthenticated.text = PlayGamesPlatform.Instance.IsAuthenticated().ToString();
+        isConnected.text = isConnectedToGoogleServices.ToString();
+    }
 
 
     private bool ConnectToPlayServices()
     {
         if (!isConnectedToGoogleServices)
         {
-            Social.localUser.Authenticate((bool success) =>
+            PlayGamesPlatform.Instance.Authenticate((bool success) =>
             {
                 isConnectedToGoogleServices = success;
 
                 if(success == false)
                 {
-                    ScoreManager.Instance.leaderboardButton.interactable = false;
+                    //ScoreManager.Instance.leaderboardButton.interactable = false;
                 }
-            });
+            }, true);
         }
-
+        //if (!PlayGamesPlatform.Instance.localUser.authenticated)
+        //{
+        //    PlayGamesPlatform.Instance.Authenticate((bool success) => {
+        //        if (success)
+        //        {
+        //            //some code here
+        //        }
+        //        else
+        //        {
+        //            //some code here
+        //        }
+        //    }, true); //true means no login prompt will show up
+        //}
+        
         return isConnectedToGoogleServices;
     }
 
@@ -101,20 +128,31 @@ public class GameManager : MonoBehaviour {
         InitializeDifficulty();
     }
 
+    public void ToggleConnectToGoogleServices(bool connect)
+    {
+        if (connect)
+        {
+            PlayGamesPlatform.Activate();
+            isConnectedToGoogleServices = ConnectToPlayServices();
+        }
 
+        else
+        {
+            if (isConnectedToGoogleServices)
+            {
+                PlayGamesPlatform.Instance.SignOut();
+                isConnectedToGoogleServices = false;
+                //Toast.Create("You have been logged out of Google Play Services").Show();
+                
+            }
+        }
+    }
 
     private void GameStart()
     {
         menuCanvas.enabled = false;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            PlayerPrefs.DeleteAll();
-        }
-    }
 
     public void GameLost()
     {

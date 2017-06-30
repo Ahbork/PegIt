@@ -51,9 +51,6 @@ public class PlayButton : MonoBehaviour {
 
     private void StartInstantly()
     {
-        //EventManager.Instance.MoveMenuElements(1);
-        //EventManager.Instance.MoveMenuElements(2);
-        //EventManager.Instance.MoveMenuElements(3);
         EventManager.Instance.StartGame();
     }
 

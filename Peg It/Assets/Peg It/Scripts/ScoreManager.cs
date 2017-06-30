@@ -68,11 +68,6 @@ public class ScoreManager : MonoBehaviour {
 
     private void Init()
     {
-        if (!GameManager.isEditor)
-        {
-
-        }
-
         if (PlayerPrefs.HasKey(GetHighscorePath()))
         {
             highscoreText.text = "Best:\n" + PlayerPrefs.GetInt(GetHighscorePath());
@@ -97,7 +92,7 @@ public class ScoreManager : MonoBehaviour {
     
     private void OpenLeaderboard()
     {
-        if (Social.localUser.authenticated)
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
         {
             Social.ShowLeaderboardUI();
         }
@@ -156,7 +151,7 @@ public class ScoreManager : MonoBehaviour {
 
     public void ReportScore(int score)
     {
-        if (Social.localUser.authenticated)
+        if (PlayGamesPlatform.Instance.IsAuthenticated())
         {
             string leaderboard = "";
             switch (GameManager.currentDifficulty)

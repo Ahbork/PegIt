@@ -18,7 +18,7 @@ public class Options : MonoBehaviour {
 
 
     // Use this for initialization
-    void Awake () {
+    void Start () {
         FindVariables();
         Init();
     }
@@ -132,7 +132,8 @@ public class Options : MonoBehaviour {
 
         SaveSettings();
 
-        //TODO: log out of google play
+        //Log out of google play
+        GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
     }
 
 
@@ -143,7 +144,8 @@ public class Options : MonoBehaviour {
 
         SaveSettings();
 
-        //TODO: log out of google play
+        //Log out of google play
+        GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
 
     }
 }
