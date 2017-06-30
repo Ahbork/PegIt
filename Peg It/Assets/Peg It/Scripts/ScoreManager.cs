@@ -16,8 +16,8 @@ public class ScoreManager : MonoBehaviour {
     //private Coroutine _timerRoutine;
     private static ScoreManager _instance;
     private int _curScore = 0;
-    private const string HIGHSCORE_PREFS_PATH = "CMI2_Highscore_";
-    private const string LASTSCORE_PREFS_PATH = "CMI2_Lastscore_";
+    private const string HIGHSCORE_PREFS_PATH = "PegIt_Highscore_";
+    private const string LASTSCORE_PREFS_PATH = "PegIt_Lastscore_";
     //private const string LEADERBOARD_PATH = "Fsdf";
 
     public static ScoreManager Instance
@@ -54,6 +54,8 @@ public class ScoreManager : MonoBehaviour {
         EventManager.Start += GameStart;
         EventManager.Lost += GameLost;
         EventManager.Correct += AddPoint;
+        EventManager.Countdown += ToggleLeaderboardButton;
+        EventManager.Lost += ToggleLeaderboardButton;
 
         if (leaderboardButton)
             leaderboardButton.onClick.AddListener(() => OpenLeaderboard());
@@ -105,6 +107,11 @@ public class ScoreManager : MonoBehaviour {
     }
 
 
+    private void ToggleLeaderboardButton()
+    {
+        leaderboardButton.interactable = !leaderboardButton.interactable;
+    }
+
 
     private void AddPoint()
     {
@@ -145,37 +152,7 @@ public class ScoreManager : MonoBehaviour {
         highscoreText.text = "Best:\n" + PlayerPrefs.GetInt(GetHighscorePath());
     }
 
-
-    //private IEnumerator GameTimer()
-    //{
-    //    timerText.text = "00:00:00";
-    //    float timeAtStart = Time.time;
-
-    //    while (true)
-    //    {
-    //        _curScore = Time.time - timeAtStart;
-    //        timerText.text = GetScoreString(_curScore);
-
-    //        yield return new WaitForFixedUpdate();
-    //    }
-    //}
-
-
-
-    //private string GetScoreString(float score)
-    //{
-    //    if (score == 0)
-    //        return "--:--:--";
-
-    //    float minutes = score / 60;
-    //    float seconds = score % 60;
-    //    float fraction = score * 100;
-    //    fraction = fraction % 100;
-        
-    //    return string.Format("{0:00}:{1:00}:{2:00}", (int)minutes, (int)seconds, (int)fraction);
-    //}
-
-
+    
 
     public void ReportScore(int score)
     {

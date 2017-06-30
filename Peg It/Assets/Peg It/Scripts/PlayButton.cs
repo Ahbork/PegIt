@@ -38,10 +38,24 @@ public class PlayButton : MonoBehaviour {
     private void StartCountdown()
     {
         btn.interactable = false;
-        _countdownRoutine = StartCoroutine(CountdownToStart());
+        if (!Options.skipCountdown)
+        {
+            _countdownRoutine = StartCoroutine(CountdownToStart());
+
+        }
+        else
+        {
+            StartInstantly();
+        }
     }
 
-
+    private void StartInstantly()
+    {
+        //EventManager.Instance.MoveMenuElements(1);
+        //EventManager.Instance.MoveMenuElements(2);
+        //EventManager.Instance.MoveMenuElements(3);
+        EventManager.Instance.StartGame();
+    }
 
     private IEnumerator CountdownToStart()
     {

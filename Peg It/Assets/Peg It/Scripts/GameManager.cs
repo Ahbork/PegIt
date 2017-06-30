@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
     public static bool isEditor = true;
     public static bool isConnectedToGoogleServices = false;
 
-    private const string DIFFICULTY_PREFS_PATH = "CMI2_Difficulty";
+    private const string DIFFICULTY_PREFS_PATH = "PegIt_Difficulty";
     private static GameManager _instance = null;
 
     public static GameManager Instance
