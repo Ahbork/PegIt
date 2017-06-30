@@ -19,9 +19,6 @@ public class GameManager : MonoBehaviour {
     private const string DIFFICULTY_PREFS_PATH = "PegIt_Difficulty";
     private static GameManager _instance = null;
 
-    public Text isAuthenticated;
-    public Text isConnected;
-
     public static GameManager Instance
     {
         get
@@ -63,13 +60,6 @@ public class GameManager : MonoBehaviour {
     }
 
 
-    private void Update()
-    {
-        isAuthenticated.text = PlayGamesPlatform.Instance.IsAuthenticated().ToString();
-        isConnected.text = isConnectedToGoogleServices.ToString();
-    }
-
-
     private bool ConnectToPlayServices()
     {
         if (!isConnectedToGoogleServices)
@@ -81,8 +71,9 @@ public class GameManager : MonoBehaviour {
                 if(success == false)
                 {
                     //ScoreManager.Instance.leaderboardButton.interactable = false;
+
                 }
-            }, true);
+            });
         }
         //if (!PlayGamesPlatform.Instance.localUser.authenticated)
         //{
@@ -143,8 +134,12 @@ public class GameManager : MonoBehaviour {
                 PlayGamesPlatform.Instance.SignOut();
                 isConnectedToGoogleServices = false;
                 //Toast.Create("You have been logged out of Google Play Services").Show();
-                
+                ToastManager.instance.CreateHint(Options.useGoogleBtn.transform,
+                    new Vector2(ToastManager.instance.toastSprites[0].rect.width / 2.25f,
+                    ToastManager.instance.toastSprites[0].rect.height / 6)
+                    , 0);
             }
+            
         }
     }
 

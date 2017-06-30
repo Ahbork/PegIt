@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Options : MonoBehaviour {
 
-    private Button optionsBtn, skipCountdownBtn, useGoogleBtn;
     private Image skipCountdownImg, useGoogleImg;
     private GameObject optionsWindow;
     private const string PREFS_SKIP_COUNTDOWN = "PegIt_SkipCountdown";
@@ -15,6 +14,7 @@ public class Options : MonoBehaviour {
     public static bool useGoogleServices = true;
     public static bool skipCountdown = false;
     public Sprite[] countdownSprites, googleSprites;
+    public static Button optionsBtn, skipCountdownBtn, useGoogleBtn;
 
 
     // Use this for initialization
@@ -118,7 +118,7 @@ public class Options : MonoBehaviour {
     {
         skipCountdown = !skipCountdown;
         skipCountdownImg.sprite = skipCountdown ? countdownSprites[0] : countdownSprites[1];
-        print("Use Countdown: " + skipCountdown);
+        //print("Use Countdown: " + skipCountdown);
 
         SaveSettings();
 
@@ -128,7 +128,7 @@ public class Options : MonoBehaviour {
     {
         useGoogleServices = !useGoogleServices;
         useGoogleImg.sprite = useGoogleServices ? googleSprites[0] : googleSprites[1];
-        print("Use Google Services: " + useGoogleServices);
+        //print("Use Google Services: " + useGoogleServices);
 
         SaveSettings();
 
