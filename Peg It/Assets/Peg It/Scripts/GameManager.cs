@@ -17,46 +17,33 @@ public class GameManager : MonoBehaviour {
     public static bool isConnectedToGoogleServices = false;
 
     private const string DIFFICULTY_PREFS_PATH = "PegIt_Difficulty";
-    private static GameManager _instance = null;
+    public static GameManager Instance = null;
 
-    public static GameManager Instance
-    {
-        get
-        {
-            if (_instance != null)
-            {
-                return _instance;
-            }
-            else
-            {
-                GameObject gameManagerObject = new GameObject("GameManager");
-                _instance = gameManagerObject.AddComponent<GameManager>();
-                DontDestroyOnLoad(gameManagerObject);
-            }
-            return _instance;
-        }
-    }
+    //public static GameManager Instance
+    //{
+    //    get
+    //    {
+    //        if (_instance != null)
+    //        {
+    //            return _instance;
+    //        }
+    //        else
+    //        {
+    //            GameObject gameManagerObject = new GameObject("GameManager");
+    //            _instance = gameManagerObject.AddComponent<GameManager>();
+    //            DontDestroyOnLoad(gameManagerObject);
+    //        }
+    //        return _instance;
+    //    }
+    //}
 
-
+    
 
     private void Awake()
     {
-        _instance = this;
+        Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        
-
-#if UNITY_EDITOR
-        isEditor = true;
-#else
-       
-        isEditor = false;
-
-        if(Options.useGoogleServices){
-            PlayGamesPlatform.Activate();
-            isConnectedToGoogleServices = ConnectToPlayServices();
-        }
-#endif
     }
 
 
@@ -96,10 +83,32 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
-        _instance = this;
+        //_instance = this;
+
+
+
         Init();
+        StartCoroutine(ConnectToGooglePlay());
+
     }
 
+
+    //delayed because of spaghetti code
+    private IEnumerator ConnectToGooglePlay()
+    {
+        yield return new WaitForSeconds(1);
+#if UNITY_EDITOR
+        isEditor = true;
+#else
+       
+        isEditor = false;
+
+        if(Options.useGoogleServices){
+            PlayGamesPlatform.Activate();
+            isConnectedToGoogleServices = ConnectToPlayServices();
+        }
+#endif
+    }
 
 
     private void Init()

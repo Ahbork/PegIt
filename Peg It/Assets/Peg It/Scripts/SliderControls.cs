@@ -19,32 +19,6 @@ public class SliderControls : MonoBehaviour {
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            print(EventManager.Instance.name);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeMaxSliderValue(E_Difficulty.Easy);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeMaxSliderValue(E_Difficulty.Medium);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeMaxSliderValue(E_Difficulty.Hard);
-        }
-
-
-           
-    }
-
-
-
     public void OnSliderValueChanged(Slider slider)
     {
         if(slider.value > GameManager.availableMods - 1)

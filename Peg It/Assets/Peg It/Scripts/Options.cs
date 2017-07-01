@@ -22,7 +22,8 @@ public class Options : MonoBehaviour {
         FindVariables();
         Init();
     }
-	
+
+
     private void FindVariables()
     {
         if (optionsBtn == null)
@@ -49,37 +50,39 @@ public class Options : MonoBehaviour {
         skipCountdownBtn.onClick.AddListener(() => ToggleSkipCountdown());
         useGoogleBtn.onClick.AddListener(() => ToggleUseGoogle());
 
-        //Initialize skip countdown
-        if (PlayerPrefs.HasKey(PREFS_SKIP_COUNTDOWN))
-        {
-            bool skipping = PlayerPrefs.GetInt(PREFS_SKIP_COUNTDOWN) == 1 ? true : false;
-            ToggleSkipCountdown(skipping);
-        }
-        else
-        {
-            SaveSettings();
-        }
-
         //Initialize use Google Play Services
         if (PlayerPrefs.HasKey(PREFS_USE_GOOGLE))
         {
             bool google = PlayerPrefs.GetInt(PREFS_USE_GOOGLE) == 1 ? true : false;
             ToggleUseGoogle(google);
         }
-        else
+
+        //Initialize skip countdown
+        if (PlayerPrefs.HasKey(PREFS_SKIP_COUNTDOWN))
         {
-            SaveSettings();
+            bool skipping = PlayerPrefs.GetInt(PREFS_SKIP_COUNTDOWN) == 1 ? true : false;
+            ToggleSkipCountdown(skipping);
         }
+
+       
         
     }
 
-    public void SaveSettings()
+    public void SaveSettingsCountdown()
     {
-        int google = useGoogleServices ? 1 : 0;   //1 = true, 0 = false
-        PlayerPrefs.SetInt(PREFS_USE_GOOGLE, google);
 
         int skipping = skipCountdown ? 1 : 0;   //1 = true, 0 = false
         PlayerPrefs.SetInt(PREFS_SKIP_COUNTDOWN, skipping);
+        print("Prefs saved! SkipCountdown: " + skipping);
+
+        PlayerPrefs.Save();
+    }
+
+    public void SaveSettingsGoogle()
+    {
+        int google = useGoogleServices ? 1 : 0;   //1 = true, 0 = false
+        PlayerPrefs.SetInt(PREFS_USE_GOOGLE, google);
+        print("Prefs saved! UseGoogle: " + google);
 
         PlayerPrefs.Save();
     }
@@ -110,7 +113,7 @@ public class Options : MonoBehaviour {
         skipCountdown = skip;
         skipCountdownImg.sprite = skip ? countdownSprites[0] : countdownSprites[1];
 
-        SaveSettings();
+        SaveSettingsCountdown();
 
     }
 
@@ -120,9 +123,10 @@ public class Options : MonoBehaviour {
         skipCountdownImg.sprite = skipCountdown ? countdownSprites[0] : countdownSprites[1];
         //print("Use Countdown: " + skipCountdown);
 
-        SaveSettings();
+        SaveSettingsCountdown();
 
     }
+
 
     public void ToggleUseGoogle()
     {
@@ -130,7 +134,7 @@ public class Options : MonoBehaviour {
         useGoogleImg.sprite = useGoogleServices ? googleSprites[0] : googleSprites[1];
         //print("Use Google Services: " + useGoogleServices);
 
-        SaveSettings();
+        SaveSettingsGoogle();
 
         //Log out of google play
         GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
@@ -142,7 +146,7 @@ public class Options : MonoBehaviour {
         useGoogleServices = use;
         useGoogleImg.sprite = use ? googleSprites[0] : googleSprites[1];
 
-        SaveSettings();
+        SaveSettingsGoogle();
 
         //Log out of google play
         GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
