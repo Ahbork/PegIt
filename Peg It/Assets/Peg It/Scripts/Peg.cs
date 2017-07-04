@@ -21,6 +21,8 @@ public class Peg : MonoBehaviour {
         _rect = GetComponent<RectTransform>();
         Random.seed = System.Environment.TickCount;
 
+        EventManager.Wrong += WrongPeg;
+
         RandomizePeg();
 
         //if(PegSpawner.pegLifeTime > 0.5f)
@@ -59,7 +61,7 @@ public class Peg : MonoBehaviour {
         float endTime = startTime + lifetime;
         float timeToMove = lifetime;
         Vector3 startPos = _rect.position;
-        Vector3 endPos = new Vector3(_rect.position.x, 0, _rect.position.z);
+        Vector3 endPos = new Vector3(_rect.position.x, -100, _rect.position.z);
 
 
         while(Time.time < endTime)
@@ -73,11 +75,28 @@ public class Peg : MonoBehaviour {
     }
 
 
+    public void WrongPeg()
+    {
+        StopCoroutine(_moveRoutine);
+        StartCoroutine(DelayLoss());
+    }
+
+
+    private IEnumerator DelayLoss()
+    {
+        yield return new WaitForSeconds(1);
+        
+        EventManager.Instance.GameLost();
+        DestroyPeg();
+    }
+
     public void DestroyPeg()
     {
+        EventManager.Wrong -= WrongPeg;
         Destroy(gameObject);
     }
 
+  
 
     public int ShapeIndex
     {

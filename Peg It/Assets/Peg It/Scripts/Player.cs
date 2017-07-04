@@ -9,12 +9,12 @@ public class Player : MonoBehaviour {
     private Image backgroundImg;
     private int _curShapeIndex = 0;
     private int _curColourIndex = 0;
-    private const float TOUCH_DIST_THRESHOLD = 90f;
+    private const float TOUCH_DIST_THRESHOLD = 200f;
     private Color defColor = Color.white;
     private const float COLOR_FADE_TIME = 0.4f;
 
     public Image mask;
-   
+    public GameObject pegCorrect, pegWrong;
 
     private void Start()
     {
@@ -35,7 +35,6 @@ public class Player : MonoBehaviour {
         _curShapeIndex = shapeID;
         _curColourIndex = colourID;
     }
-
 
 
     public void CorrectColor()
@@ -72,29 +71,73 @@ public class Player : MonoBehaviour {
     }
 
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Peg")
+        if (collision.tag == "Peg")
         {
-            if(collision.transform.position.y < transform.position.y + TOUCH_DIST_THRESHOLD)
+            Peg peg = collision.GetComponent<Peg>();
+
+            if (_curShapeIndex != peg.ShapeIndex || _curColourIndex != peg.ColourIndex)
             {
-                Peg peg = collision.GetComponent<Peg>();
-
-                if (_curShapeIndex == peg.ShapeIndex && _curColourIndex == peg.ColourIndex)
-                {
-                    //Debug.Log("Correct!");
-                    EventManager.Instance.CorrectColor();
-                    peg.DestroyPeg();
-
-                }
-                else
-                {
-                    //Debug.Log("False!");
-                    EventManager.Instance.GameLost();
-                    peg.DestroyPeg();
-
-                }
-            }  
+                //Debug.Log("False!");
+                //EventManager.Instance.GameLost();
+                EventManager.Instance.WrongPeg();
+                //peg.DestroyPeg();
+            }
+            else
+            {
+                EventManager.Instance.DisableControl();
+            }
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Peg")
+        {
+
+            Peg peg = collision.GetComponent<Peg>();
+
+            if (_curShapeIndex == peg.ShapeIndex && _curColourIndex == peg.ColourIndex)
+            {
+                //Debug.Log("Correct!");
+                EventManager.Instance.CorrectPeg();
+                peg.DestroyPeg();
+
+            }
+            else
+            {
+                //Debug.Log("False!");
+                EventManager.Instance.GameLost();
+                peg.DestroyPeg();
+
+            }
+        }
+    }
+
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if(collision.tag == "Peg")
+    //    {
+    //        if(collision.transform.position.y < transform.position.y - TOUCH_DIST_THRESHOLD)
+    //        {
+    //            Peg peg = collision.GetComponent<Peg>();
+
+    //            if (_curShapeIndex == peg.ShapeIndex && _curColourIndex == peg.ColourIndex)
+    //            {
+    //                //Debug.Log("Correct!");
+    //                EventManager.Instance.CorrectColor();
+    //                peg.DestroyPeg();
+
+    //            }
+    //            else
+    //            {
+    //                //Debug.Log("False!");
+    //                EventManager.Instance.GameLost();
+    //                peg.DestroyPeg();
+
+    //            }
+    //        }  
+    //    }
+    //}
 }

@@ -7,11 +7,14 @@ public class SliderControls : MonoBehaviour {
 
     public float alphaDisabled = 0.15f;
     public float alphaEnabled = 1f;
-
+    private bool canControl = true;
 
     private void Start()
     {
         EventManager.ChangeDifficulty += ChangeMaxSliderValue;
+        EventManager.DisableSliders += DisableSliderControl;
+        EventManager.Lost += EnableSliderControl;
+        EventManager.Correct += EnableSliderControl;
         foreach (Slider slider in SliderRefs.Instance.sliders)
         {
             slider.onValueChanged.AddListener(delegate { OnSliderValueChanged(slider); });
@@ -73,6 +76,27 @@ public class SliderControls : MonoBehaviour {
         foreach(Slider slider in SliderRefs.Instance.sliders)
         {
             OnSliderValueChanged(slider);
+        }
+    }
+
+
+    public void EnableSliderControl()
+    {
+        canControl = true;
+        print("Control: " + canControl);
+        foreach(Slider slid in SliderRefs.Instance.sliders)
+        {
+            slid.interactable = canControl;
+        }
+    }
+
+    public void DisableSliderControl()
+    {
+        canControl = false;
+        print("Control: " + canControl);
+        foreach (Slider slid in SliderRefs.Instance.sliders)
+        {
+            slid.interactable = canControl;
         }
     }
 }

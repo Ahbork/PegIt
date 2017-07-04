@@ -16,9 +16,14 @@ public class EventManager : MonoBehaviour {
     public delegate void GameState();
     public static event GameState Countdown;
     public static event GameState Start;
+    public static event GameState Wrong;
     public static event GameState Lost;
     public static event GameState Correct;
-    //public static event GameState Poin;
+
+    public delegate void SliderControl();
+    public static event SliderControl EnableSliders;
+    public static event SliderControl DisableSliders;
+ 
 
 
 
@@ -85,7 +90,7 @@ public class EventManager : MonoBehaviour {
 
 
 
-    public void CorrectColor()
+    public void CorrectPeg()
     {
         if(Correct != null)
         {
@@ -118,6 +123,30 @@ public class EventManager : MonoBehaviour {
         if(Lost != null)
         {
             Lost();
+        }
+    }
+
+    public void WrongPeg()
+    {
+        if (Wrong != null)
+        {
+            Wrong();
+        }
+    }
+
+    public void DisableControl()
+    {
+        if (DisableSliders != null)
+        {
+            DisableSliders();
+        }
+    }
+
+    public void EnableControl()
+    {
+        if (EnableSliders != null)
+        {
+            EnableSliders();
         }
     }
 }

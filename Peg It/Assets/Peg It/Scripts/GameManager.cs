@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     public static E_Difficulty currentDifficulty;
     public static bool isEditor = true;
     public static bool isConnectedToGoogleServices = false;
+    
 
     private const string DIFFICULTY_PREFS_PATH = "PegIt_Difficulty";
     public static GameManager Instance = null;
