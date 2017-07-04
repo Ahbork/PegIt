@@ -22,16 +22,9 @@
 ///
 
 
-public static class CMI_Resources
+public static class GPResources
 {
-        public const string achievement_test5 = "CgkI3KekmpYXEAIQBQ"; // <GPGSID>
-        public const string leaderboard_medium = "CgkI3KekmpYXEAIQBw"; // <GPGSID>
-        public const string leaderboard_easy = "CgkI3KekmpYXEAIQBg"; // <GPGSID>
-        public const string leaderboard_hard = "CgkI3KekmpYXEAIQCA"; // <GPGSID>
-        public const string achievement_test1 = "CgkI3KekmpYXEAIQAQ"; // <GPGSID>
-        public const string achievement_test2 = "CgkI3KekmpYXEAIQAg"; // <GPGSID>
-        public const string achievement_test3 = "CgkI3KekmpYXEAIQAw"; // <GPGSID>
-        public const string achievement_test4 = "CgkI3KekmpYXEAIQBA"; // <GPGSID>
+        public const string leaderboard_hard = "CgkIoI7z0-4XEAIQAQ"; // <GPGSID>
 
 }
 

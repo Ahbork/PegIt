@@ -76,7 +76,7 @@ public class Player : MonoBehaviour {
     {
         if(collision.tag == "Peg")
         {
-            if(collision.transform.position.y < transform.position.y - TOUCH_DIST_THRESHOLD)
+            if(collision.transform.position.y < transform.position.y + TOUCH_DIST_THRESHOLD)
             {
                 Peg peg = collision.GetComponent<Peg>();
 

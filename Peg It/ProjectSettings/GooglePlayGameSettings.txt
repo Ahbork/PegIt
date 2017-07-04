@@ -1,9 +1,9 @@
 lastUpgrade=00939
 proj.pluginVersion=0.9.39a
-proj.AppId=796234683356
-and.BundleId=com.LuckyMountain.ColourMeImpressed
+proj.AppId=819977832224
+and.BundleId=com.LuckyMountain.PegIt
 proj.classDir=Assets
-proj.ConstantsClassName=CMI_Resources
-and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e796234683356%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.LuckyMountain.ColourMeImpressed%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test1%22%3eCgkI3KekmpYXEAIQAQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test2%22%3eCgkI3KekmpYXEAIQAg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test3%22%3eCgkI3KekmpYXEAIQAw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test4%22%3eCgkI3KekmpYXEAIQBA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test5%22%3eCgkI3KekmpYXEAIQBQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_easy%22%3eCgkI3KekmpYXEAIQBg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_medium%22%3eCgkI3KekmpYXEAIQBw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_hard%22%3eCgkI3KekmpYXEAIQCA%3c%2fstring%3e%0d%0a%3c%2fresources%3e%0d
+proj.ConstantsClassName=GPResources
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e819977832224%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.LuckyMountain.PegIt%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22leaderboard_hard%22%3eCgkIoI7z0-4XEAIQAQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e
 and.ClientId=
 android.SetupDone=true

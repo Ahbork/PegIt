@@ -73,7 +73,7 @@ public class Options : MonoBehaviour {
 
         int skipping = skipCountdown ? 1 : 0;   //1 = true, 0 = false
         PlayerPrefs.SetInt(PREFS_SKIP_COUNTDOWN, skipping);
-        print("Prefs saved! SkipCountdown: " + skipping);
+        //print("Prefs saved! SkipCountdown: " + skipping);
 
         PlayerPrefs.Save();
     }
@@ -82,7 +82,7 @@ public class Options : MonoBehaviour {
     {
         int google = useGoogleServices ? 1 : 0;   //1 = true, 0 = false
         PlayerPrefs.SetInt(PREFS_USE_GOOGLE, google);
-        print("Prefs saved! UseGoogle: " + google);
+        //print("Prefs saved! UseGoogle: " + google);
 
         PlayerPrefs.Save();
     }
