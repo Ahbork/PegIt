@@ -21,8 +21,8 @@ public class Player : MonoBehaviour {
         img = GetComponent<Image>();
         backgroundImg = GetComponent<Image>();
         EventManager.UpdatePlayer += UpdatePlayer;
-        //EventManager.Correct += CorrectColor;
-        //EventManager.Lost += WrongColor;
+        EventManager.Correct += CorrectColor;
+        EventManager.Wrong += WrongColor;
 
     }
 
@@ -39,35 +39,66 @@ public class Player : MonoBehaviour {
 
     public void CorrectColor()
     {
-        Color color = Color.green;
+        Image correct = GameObject.Instantiate(pegCorrect, mask.transform.GetChild(0)).GetComponent<Image>();
 
-        StartCoroutine(ColorFade(color));
+        StartCoroutine(CorrectPegMove(correct));
     }
 
 
 
     public void WrongColor()
     {
-        Color color = Color.red;
+        Image wrong = GameObject.Instantiate(pegWrong, mask.transform.GetChild(1)).GetComponent<Image>();
 
-        StartCoroutine(ColorFade(color));
+        StartCoroutine(WrongPegFade(wrong));
     }
 
-
-
-    private IEnumerator ColorFade(Color startColor)
+    private IEnumerator CorrectPegMove(Image img)
     {
-        backgroundImg.color = startColor;
+        float duration = 0.75f;
         float startTime = Time.time;
+        float endTime = startTime + duration;
+        Vector2 startPos = img.rectTransform.anchoredPosition;
+        Vector2 endPos = startPos + new Vector2(10,75);
+        Color startColor = img.color;
+        Color endColor = new Color(img.color.r, img.color.g, img.color.b, 0);
 
-        while(Time.time < startTime + COLOR_FADE_TIME)
+
+        while(Time.time < endTime)
         {
-            float percent = (Time.time - startTime) / COLOR_FADE_TIME;
-            backgroundImg.color = Color.Lerp(startColor, defColor, percent);
-            yield return new WaitForFixedUpdate();
+            
+            float percent = (Time.time - startTime) / duration;
+            float fadePercent = percent * percent * percent;
+            img.rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, percent);
+            img.color = Color.Lerp(startColor, endColor, fadePercent);
+            yield return new WaitForEndOfFrame();
         }
-        backgroundImg.color = defColor;
-        yield return null;
+
+        Destroy(img.gameObject);
+    }
+
+    private IEnumerator WrongPegFade(Image img)
+    {
+
+        float duration = 1f;
+        float startTime = Time.time;
+        float endTime = startTime + duration;
+        Color startColor = img.color;
+        Color endColor = new Color(img.color.r, img.color.g, img.color.b, 0);
+        Vector2 startPos = img.rectTransform.anchoredPosition;
+        Vector2 endPos = startPos + new Vector2(-10, 30);
+
+        while (Time.time < endTime)
+        {
+            float percent = (Time.time - startTime) / duration;
+            float fadePercent = percent * percent * percent;
+            img.rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, percent);
+            img.color = Color.Lerp(startColor, endColor, fadePercent);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        Destroy(img.gameObject);
     }
 
 
