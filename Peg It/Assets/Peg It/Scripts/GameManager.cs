@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour {
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+
     }
 
 
@@ -56,10 +57,10 @@ public class GameManager : MonoBehaviour {
             {
                 isConnectedToGoogleServices = success;
 
-                if(success == false)
+                if (success == false)
                 {
                     //ScoreManager.Instance.leaderboardButton.interactable = false;
-
+                    ToastManager.instance.CreateHint(GameObject.Find("LeaderboardButton").transform, new Vector2(0, ToastManager.instance.toastSprites[2].rect.height / 2), 2);
                 }
             });
         }
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour {
         //        }
         //    }, true); //true means no login prompt will show up
         //}
-        
+        print("Connect");
         return isConnectedToGoogleServices;
     }
 
@@ -90,7 +91,6 @@ public class GameManager : MonoBehaviour {
 
         Init();
         StartCoroutine(ConnectToGooglePlay());
-
     }
 
 
@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour {
                     ToastManager.instance.toastSprites[0].rect.height / 6)
                     , 0);
             }
-            
+
         }
     }
 

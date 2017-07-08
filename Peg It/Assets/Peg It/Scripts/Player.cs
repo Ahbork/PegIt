@@ -108,12 +108,13 @@ public class Player : MonoBehaviour {
         {
             Peg peg = collision.GetComponent<Peg>();
 
-            if (_curShapeIndex != peg.ShapeIndex || _curColourIndex != peg.ColourIndex)
+            if (!CheckPegCompatibility(peg))
             {
                 //Debug.Log("False!");
                 //EventManager.Instance.GameLost();
                 EventManager.Instance.WrongPeg();
                 //peg.DestroyPeg();
+                EventManager.Instance.DisableControl();
             }
             else
             {
@@ -129,7 +130,7 @@ public class Player : MonoBehaviour {
 
             Peg peg = collision.GetComponent<Peg>();
 
-            if (_curShapeIndex == peg.ShapeIndex && _curColourIndex == peg.ColourIndex)
+            if (CheckPegCompatibility(peg))
             {
                 //Debug.Log("Correct!");
                 EventManager.Instance.CorrectPeg();
@@ -139,10 +140,23 @@ public class Player : MonoBehaviour {
             else
             {
                 //Debug.Log("False!");
-                EventManager.Instance.GameLost();
-                peg.DestroyPeg();
+               // EventManager.Instance.GameLost();
+               // peg.DestroyPeg();
 
             }
+        }
+    }
+
+    public bool CheckPegCompatibility(Peg peg)
+    {
+        if (_curShapeIndex == peg.ShapeIndex && _curColourIndex == peg.ColourIndex)
+        {
+            return true;
+
+        }
+        else
+        {
+            return false;
         }
     }
 
