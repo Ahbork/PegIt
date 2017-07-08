@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SocialPlatforms;
 using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 //using UnityEngine.WSA;
 
 public class GameManager : MonoBehaviour {
@@ -44,7 +45,6 @@ public class GameManager : MonoBehaviour {
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
     }
 
 
@@ -52,14 +52,25 @@ public class GameManager : MonoBehaviour {
     {
         if (!isConnectedToGoogleServices)
         {
-            PlayGamesPlatform.Instance.Authenticate((bool success) =>
+            //PlayGamesPlatform.Activate();
+
+            //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+
+            //    .Build();
+
+            //PlayGamesPlatform.InitializeInstance(config);
+            // recommended for debugging:
+            //PlayGamesPlatform.DebugLogEnabled = true;
+
+            Social.localUser.Authenticate((bool success) =>
+            //PlayGamesPlatform.Instance.Authenticate((bool success) =>
             {
                 isConnectedToGoogleServices = success;
 
-                if(success == false)
+                if (success == false)
                 {
                     //ScoreManager.Instance.leaderboardButton.interactable = false;
-
+                    ToastManager.instance.CreateHint(GameObject.Find("LeaderboardButton").transform, new Vector2(0, ToastManager.instance.toastSprites[2].rect.height / 2), 2);
                 }
             });
         }
@@ -76,7 +87,6 @@ public class GameManager : MonoBehaviour {
         //        }
         //    }, true); //true means no login prompt will show up
         //}
-        
         return isConnectedToGoogleServices;
     }
 
@@ -86,29 +96,49 @@ public class GameManager : MonoBehaviour {
     {
         //_instance = this;
 
+#if UNITY_EDITOR
+        isEditor = true;
+#else
+       
+        isEditor = false;
+#endif
 
+        if (!isEditor)
+        {
+            PlayGamesPlatform.Activate();
+            //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+
+            //    .Build();
+
+            //PlayGamesPlatform.InitializeInstance(config);
+            // recommended for debugging:
+            //PlayGamesPlatform.DebugLogEnabled = true;
+        }
 
         Init();
         StartCoroutine(ConnectToGooglePlay());
-
     }
 
 
     //delayed because of spaghetti code
     private IEnumerator ConnectToGooglePlay()
     {
-        yield return new WaitForSeconds(1);
-#if UNITY_EDITOR
-        isEditor = true;
-#else
-       
-        isEditor = false;
+        yield return new WaitForSeconds(0.5f);
 
-        if(Options.useGoogleServices){
-            PlayGamesPlatform.Activate();
-            isConnectedToGoogleServices = ConnectToPlayServices();
+
+        if (!isEditor)
+        {
+            if (Options.useGoogleServices)
+            {
+                //PlayGamesPlatform.Activate();
+                isConnectedToGoogleServices = ConnectToPlayServices();
+            }
+            else
+            {
+                ToastManager.instance.CreateHint(GameObject.Find("LeaderboardButton").transform, new Vector2(0, ToastManager.instance.toastSprites[1].rect.height / 2), 1);
+            }
         }
-#endif
+        
     }
 
 
@@ -133,7 +163,7 @@ public class GameManager : MonoBehaviour {
     {
         if (connect)
         {
-            PlayGamesPlatform.Activate();
+            //PlayGamesPlatform.Activate();
             isConnectedToGoogleServices = ConnectToPlayServices();
         }
 
@@ -149,7 +179,10 @@ public class GameManager : MonoBehaviour {
                     ToastManager.instance.toastSprites[0].rect.height / 6)
                     , 0);
             }
-            
+            else
+            {
+                
+            }
         }
     }
 

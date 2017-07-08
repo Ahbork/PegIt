@@ -83,7 +83,7 @@ public class SliderControls : MonoBehaviour {
     public void EnableSliderControl()
     {
         canControl = true;
-        print("Control: " + canControl);
+
         foreach(Slider slid in SliderRefs.Instance.sliders)
         {
             slid.interactable = canControl;
@@ -93,7 +93,6 @@ public class SliderControls : MonoBehaviour {
     public void DisableSliderControl()
     {
         canControl = false;
-        print("Control: " + canControl);
         foreach (Slider slid in SliderRefs.Instance.sliders)
         {
             slid.interactable = canControl;

@@ -97,7 +97,7 @@ public class ScoreManager : MonoBehaviour {
             Social.ShowLeaderboardUI();
         }
         else{
-            //TODO: Show error window to player
+            //Show error window to player
             ToastManager.instance.CreateHint(leaderboardButton.transform, new Vector2(0, ToastManager.instance.toastSprites[1].rect.height/2), 1);
         }
     }

@@ -10,6 +10,7 @@ public class Options : MonoBehaviour {
     private const string PREFS_SKIP_COUNTDOWN = "PegIt_SkipCountdown";
     private const string PREFS_USE_GOOGLE = "PegIt_UseGoogleServices";
     private bool showOptions = false;
+    private bool hasInitializedToggles = false;
 
     public static bool useGoogleServices = true;
     public static bool skipCountdown = false;
@@ -137,7 +138,12 @@ public class Options : MonoBehaviour {
         SaveSettingsGoogle();
 
         //Log out of google play
-        GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
+        if(hasInitializedToggles)
+            GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
+        else
+        {
+            hasInitializedToggles = true;
+        }
     }
 
 
@@ -149,7 +155,12 @@ public class Options : MonoBehaviour {
         SaveSettingsGoogle();
 
         //Log out of google play
-        GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
+        if (hasInitializedToggles)
+            GameManager.Instance.ToggleConnectToGoogleServices(useGoogleServices);
+        else
+        {
+            hasInitializedToggles = true;
+        }
 
     }
 }
