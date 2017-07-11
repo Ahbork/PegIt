@@ -24,6 +24,8 @@
 
 public static class GPResources
 {
+        public const string leaderboard_medium = "CgkI1_jxtKQZEAIQBA"; // <GPGSID>
+        public const string leaderboard_easy = "CgkI1_jxtKQZEAIQAw"; // <GPGSID>
         public const string leaderboard_hard = "CgkI1_jxtKQZEAIQAA"; // <GPGSID>
 
 }

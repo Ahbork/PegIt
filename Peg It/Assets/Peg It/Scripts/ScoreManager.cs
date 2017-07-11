@@ -155,18 +155,18 @@ public class ScoreManager : MonoBehaviour {
         if (PlayGamesPlatform.Instance.IsAuthenticated())
         {
             string leaderboard = GPResources.leaderboard_hard;
-            //switch (GameManager.currentDifficulty)
-            //{
-            //    case E_Difficulty.Easy:
-            //        leaderboard = GPResources.leaderboard_easy;
-            //        break;
-            //    case E_Difficulty.Medium:
-            //        leaderboard = GPResources.leaderboard_medium;
-            //        break;
-            //    case E_Difficulty.Hard:
-            //        leaderboard = GPResources.leaderboard_hard;
-            //        break;
-            //}
+            switch (GameManager.currentDifficulty)
+            {
+                case E_Difficulty.Easy:
+                    leaderboard = GPResources.leaderboard_easy;
+                    break;
+                case E_Difficulty.Medium:
+                    leaderboard = GPResources.leaderboard_medium;
+                    break;
+                case E_Difficulty.Hard:
+                    leaderboard = GPResources.leaderboard_hard;
+                    break;
+            }
             Social.ReportScore(score, leaderboard, (bool success) => {
                 // handle success or failure
             });
