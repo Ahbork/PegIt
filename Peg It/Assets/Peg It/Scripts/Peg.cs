@@ -32,7 +32,7 @@ public class Peg : MonoBehaviour {
 
         lifetime = PegSpawner.Instance.GetLifetime();
 
-        Debug.Log("Peg lifetime: " + lifetime);
+        //Debug.Log("Peg lifetime: " + lifetime);
     }
 
     private void Start()
